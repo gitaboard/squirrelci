@@ -38,6 +38,8 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'carrierwave-processing'
 gem 'mini_magick'
+gem 'octokit', '~> 3.0'
+gem 'bunny', '>=1.6.2'
 
 
 # Use ActiveModel has_secure_password
