@@ -39,6 +39,8 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'carrierwave-processing'
 gem 'mini_magick'
 gem 'octokit', '~> 3.0'
+gem 'omniauth'
+gem 'omniauth-github'
 gem 'bunny', '>=1.6.2'
 
 
@@ -60,7 +62,7 @@ gem 'therubyrhino', group: :assets
 
 group :development do
   gem 'better_errors'
-  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
+  gem 'binding_of_caller'
   gem 'quiet_assets'
   # simple SMTP server
   gem 'mailcatcher'
