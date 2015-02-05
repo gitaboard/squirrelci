@@ -13,6 +13,7 @@ class User
   field :uid,                type: String, default: ""
   field :name,               type: String, default: ""
   field :password,           type: String, default: ""
+  field :token,              type: String, default: ""
 
   ## Recoverable
   # field :reset_password_token,   type: String
@@ -40,12 +41,13 @@ class User
   # field :locked_at,       type: Time
 
   def self.from_omniauth(auth)
-    puts auth.inspect
-    user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    # puts auth.inspect
+    user = self.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
-      user.name = auth.info.name   # assuming the user model has a name
-      # user.image = auth.info.image # assuming the user model has an image
+      user.name = auth.info.name
+      user.token = auth.credentials.token
+      user.remember_created_at = Time.now
     end
     user
   end

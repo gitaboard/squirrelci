@@ -1,10 +1,12 @@
 class RepositoriesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_repository, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @repositories = Repository.all
+    client = Octokit::Client.new(:access_token => current_user.token, :api_endpoint => "https://ghe2.faushouse.com/api/v3")
+    @repositories = client.all_repositories
     respond_with(@repositories)
   end
 
