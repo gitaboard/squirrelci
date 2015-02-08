@@ -7,6 +7,18 @@ Rails.application.routes.draw do
     get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
     get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
+
+  files = Dir.glob("#{Rails.root}/app/controllers/hooks/*_controller.rb")
+  puts files.inspect
+  files.each do |file|
+    file_header = File.open(file, &:readline)
+    name = file_header.match('Hooks::(.*?)Controller').captures.join.downcase
+    # puts name
+    controller = "hooks/#{name}#execute"
+    # puts controller
+    get "hooks/#{name}" => "#{controller}"
+  end
+  #get 'hooks/:name' => 'hooks/%{name}#execute'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
