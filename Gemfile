@@ -42,6 +42,7 @@ gem 'octokit', '~> 3.0'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'bunny', '>=1.6.2'
+gem 'json'
 
 
 # Use ActiveModel has_secure_password

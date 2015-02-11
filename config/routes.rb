@@ -13,10 +13,10 @@ Rails.application.routes.draw do
   files.each do |file|
     file_header = File.open(file, &:readline)
     name = file_header.match('Hooks::(.*?)Controller').captures.join.downcase
-    # puts name
+    puts name
     controller = "hooks/#{name}#execute"
     # puts controller
-    get "hooks/#{name}" => "#{controller}"
+    post "hooks/#{name}" => "#{controller}"
   end
   #get 'hooks/:name' => 'hooks/%{name}#execute'
   # The priority is based upon order of creation: first created -> highest priority.

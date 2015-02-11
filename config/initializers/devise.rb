@@ -236,9 +236,9 @@ Devise.setup do |config|
   config.omniauth :github, 'd26a612888e35645cb4f', '6783feb4c8c279b91b357ec75d8851c53d737d6f',
     {:scope => 'user,repo,gist',
       :client_options => {
-        :site => 'https://ghe2.faushouse.com/api/v3',
-        :authorize_url => 'https://ghe2.faushouse.com/login/oauth/authorize',
-        :token_url => 'https://ghe2.faushouse.com/login/oauth/access_token'
+        :site => 'http://ghe.socialcoder.io/api/v3',
+        :authorize_url => 'http://ghe.socialcoder.io/login/oauth/authorize',
+        :token_url => 'http://ghe.socialcoder.io/login/oauth/access_token'
       }
     }
 
