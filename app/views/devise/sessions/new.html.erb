@@ -1,3 +1,20 @@
-<h2>Log in with GitHub</h2>
-
-<%= render "devise/shared/links" %>
+<% flash.each do |key, value| %>
+  <div class="row padding">
+    <div class="large-8 large-centered columns">
+      <div data-alert class="alert-box warning radius">
+        <%= value %>
+        <a href="#" class="close">&times;</a>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div class="login-image">
+  <div class="row">
+    <div class="large-8 large-centered columns">
+      <%= link_to image_tag("login-linkage.png"), omniauth_authorize_path(resource_name, :github) %>
+    </div>
+    <div class="large-8 large-centered columns">
+      <h1>Link GitHub and SquirrelCI</h1>
+    </div>
+  </div>
+</div>

@@ -15,3 +15,51 @@
  *= require foundation_and_overrides
 
  */
+ @import "foundation_and_overrides";
+
+ .footer {
+     height: 50px;
+     position: absolute;
+     bottom: 0px;
+     width: 100%;
+     margin-left: 0;
+     margin-right: 0;
+ }
+
+ footer {
+   border-top: thin solid $gainsboro;
+   font-color: $smoke;
+   padding-top: 10px;
+ }
+
+.contain-to-grid {
+   border-bottom: thin solid $gainsboro;
+}
+
+.content-description {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: thin solid $gainsboro;
+  width: 100%;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.login-image {
+  margin-top: 100px;
+}
+
+.padding {
+  margin-top: 20px;
+}
+
+.login-image h1 {
+  font-size: rem-calc(40);
+  text-align: center;
+}
+
+nav img {
+  padding-top: 5px;
+}

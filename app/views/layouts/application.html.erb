@@ -12,7 +12,41 @@
   </head>
 
   <body>
+    <div class="contain-to-grid">
+      <nav class="top-bar" data-topbar role="navigation">
+          <ul class="title-area">
+            <li><a href="/"><%= image_tag "logo-homepage.png", alt: "SquirrelCI Logo", id: "Logo", size: "35x35" %></a></li>
+            <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+          </ul>
+          <section class="top-bar-section">
+            <ul class="left">
+              <li><a href="#">Builds</a></li>
+              <li><a href="#">WebHooks</a></li>
+              <li><a href="#">Deployments</a></li>
+            </ul>
+          </section>
+      </nav>
+    </div>
+
     <%= yield %>
+
+    <div class="footer">
+      <footer class="row">
+          <div class="large-6 medium-6 columns">
+            <h3>&copy; 2014-2015 SquirrelCI</h3>
+          </div>
+          <div class="large-6 medium-6 columns">
+            <ul class="inline-list right">
+              <li><a href="#"><h3>Section 1</h3></a></li>
+              <li><a href="#"><h3>Section 2</h3></a></li>
+              <li><a href="#"><h3>Section 3</h3></a></li>
+              <li><a href="#"><h3>Section 4</h3></a></li>
+              <li><a href="#"><h3>Section 5</h3></a></li>
+            </ul>
+          </div>
+      </footer>
+    </div>
     <%= javascript_include_tag "application" %>
   </body>
 </html>
