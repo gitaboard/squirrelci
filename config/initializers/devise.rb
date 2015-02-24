@@ -232,15 +232,17 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
-  config.omniauth :github, 'd26a612888e35645cb4f', '6783feb4c8c279b91b357ec75d8851c53d737d6f',
-    {:scope => 'user,repo,gist',
-      :client_options => {
-        :site => 'https://ghe2.faushouse.com/api/v3',
-        :authorize_url => 'https://ghe2.faushouse.com/login/oauth/authorize',
-        :token_url => 'https://ghe2.faushouse.com/login/oauth/access_token'
+  # OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
+  if not "#{GitHub['server']['client_id']}".nil?
+    config.omniauth :github, "#{GitHub['server']['client_id']}", "#{GitHub['server']['client_secret']}",
+      {:scope => 'user,repo,gist',
+        :client_options => {
+          :site => "#{GitHub['server']['url']}/api/v3",
+          :authorize_url => "#{GitHub['server']['url']}/login/oauth/authorize",
+          :token_url => "#{GitHub['server']['url']}/login/oauth/access_token"
       }
     }
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

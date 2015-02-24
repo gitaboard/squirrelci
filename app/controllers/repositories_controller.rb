@@ -5,7 +5,7 @@ class RepositoriesController < ApplicationController
   respond_to :html
 
   def index
-    client = Octokit::Client.new(:access_token => current_user.token, :api_endpoint => "https://ghe2.faushouse.com/api/v3")
+    client = Octokit::Client.new(:access_token => current_user.token, :api_endpoint => "#{GitHub['server']['url']}/api/v3")
     @repositories = client.all_repositories
     respond_with(@repositories)
   end
