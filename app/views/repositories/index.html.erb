@@ -8,10 +8,11 @@
 <div class="content">
   <div class="row">
     <div class="large-4 columns">
-      <ul class="side-nav">
-        <li><a href="/repositories/<%= @orgs[0]['user'].login %>"><span class="octicon octicon-person link"></span><%= @orgs[0]['user'].login %></a></li>
+      <ul class="side-nav repos">
+        <li class="panel header">My Organizations</li>
+        <li><a href="/repositories/<%= @orgs[0]['user'].login%>/search"><span class="octicon octicon-person link"></span><%= @orgs[0]['user'].login %></a></li>
         <% @orgs.each do |org| %>
-        <li><a href="/repositories/<%= org['organization'].login %>"><span class="octicon octicon-organization link"></span><%= org['organization'].login %></a></li>
+        <li><a href="/repositories/<%= org['organization'].login%>/search"><span class="octicon octicon-organization link"></span><%= org['organization'].login %></a></li>
         <% end %>
       </ul>
     </div>
@@ -34,6 +35,12 @@
               <td><%= repository.name %></td>
               <td><%= repository.full_name %></td>
               <td><%= repository.description %></td>
+              <td>
+                <%= form_for Repository.new do |f| %>
+                  <%= f.hidden_field :repository_id, :value => repository.id %>
+                  <%= f.button :enable, class: "enable-button"%>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>

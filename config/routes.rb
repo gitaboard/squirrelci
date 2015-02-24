@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   #resources :repositories
 
   get 'repositories' => 'repositories#index'
-  get 'repositories/:name' => 'repositories#index'
+  get 'repositories/:name/search' => 'repositories#index'
+  post 'repositories' => 'repositories#create'
+  get 'repositories/:id' => 'repositories#index'
+
   get 'setup' => 'setup#index'
   post 'setup/save' => 'setup#save'
 

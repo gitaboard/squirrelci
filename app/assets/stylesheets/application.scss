@@ -71,3 +71,26 @@ nav img {
 .octicon.link {
   margin-right: 10px;
 }
+
+.side-nav.repos {
+  border: thin solid $gainsboro;
+  border-radius: $global-radius;
+  background-color: $ghost;
+  padding-bottom: 0px;
+}
+
+.side-nav li a:not(.button) {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.panel.header {
+  color: $jet;
+  background-color: $gainsboro;
+  padding-left: 10px;
+  margin-top: -15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: $font-weight-bold;
+  border-bottom: thin solid $aluminum;
+}
