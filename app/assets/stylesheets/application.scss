@@ -73,9 +73,8 @@ nav img {
 }
 
 .side-nav.repos {
-  border: thin solid $gainsboro;
+  border: thin solid $aluminum;
   border-radius: $global-radius;
-  background-color: $ghost;
   padding-bottom: 0px;
 }
 
@@ -88,7 +87,7 @@ nav img {
   color: $jet;
   background-color: $gainsboro;
   padding-left: 10px;
-  margin-top: -15px;
+  margin-top: -14px;
   padding-top: 5px;
   padding-bottom: 5px;
   font-weight: $font-weight-bold;

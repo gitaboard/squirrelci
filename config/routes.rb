@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'repositories/:name/search' => 'repositories#index'
   post 'repositories' => 'repositories#create'
   get 'repositories/:id' => 'repositories#index'
+  post 'builds' => 'builds#create'
 
   get 'setup' => 'setup#index'
   post 'setup/save' => 'setup#save'

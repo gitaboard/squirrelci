@@ -10,22 +10,28 @@ class RepositoriesController < ApplicationController
     if name.nil? || current_user['name'].eql?(name)
       _repo = client.repositories
       @repositories = Array.new
+      @repositories_enabled = Array.new
       _repo.each do |r|
         if Repository.where(repo_id: r.id).count == 0
           @repositories << r
+        else
+          @repositories_enabled << r
         end
       end
     else
       _repo = client.organization_repositories(name)
       @repositories = Array.new
+      @repositories_enabled = Array.new
       _repo.each do |r|
         if Repository.where(repo_id: r.id).count == 0
           @repositories << r
+        else
+          @repositories_enabled << r
         end
       end
     end
     @orgs = client.organization_memberships
-    respond_with(@repositories, @orgs)
+    respond_with(@repositories, @repositories_enabled, @orgs)
   end
 
   def show
