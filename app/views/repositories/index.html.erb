@@ -1,12 +1,20 @@
 <div class="content-description">
   <div class="row">
     <div class="large-12 columns">
-      <h1>repositories</h1>
+      <h1>Repositories</h1>
     </div>
   </div>
 </div>
 <div class="content">
   <div class="row">
+    <div class="large-4 columns">
+      <ul class="side-nav">
+        <li><a href="/repositories/<%= @orgs[0]['user'].login %>"><span class="octicon octicon-person link"></span><%= @orgs[0]['user'].login %></a></li>
+        <% @orgs.each do |org| %>
+        <li><a href="/repositories/<%= org['organization'].login %>"><span class="octicon octicon-organization link"></span><%= org['organization'].login %></a></li>
+        <% end %>
+      </ul>
+    </div>
     <div class="large-8 columns">
       <table>
         <thead>
@@ -31,14 +39,6 @@
         </tbody>
       </table>
 
-    </div>
-    <div class="large-4 columns">
-      <ul class="side-nav">
-        <li><a href="#">Link 1</a></li>
-        <li><a href="#">Link 2</a></li>
-        <li><a href="#">Link 3</a></li>
-        <li><a href="#">Link 4</a></li>
-      </ul>
     </div>
 
   </div>
