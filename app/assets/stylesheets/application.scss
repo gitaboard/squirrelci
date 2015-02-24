@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  *= require foundation_and_overrides
-
+ *= require octicons/sprockets-octicons
  */
  @import "foundation_and_overrides";
 
@@ -62,4 +62,8 @@
 
 nav img {
   padding-top: 5px;
+}
+
+.octicon, .mega-octicon {
+  color: $jet;
 }

@@ -1,23 +1,45 @@
-<h1>Listing repositories</h1>
+<div class="content-description">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>repositories</h1>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="row">
+    <div class="large-8 columns">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="4"></th>
+          </tr>
+        </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+        <tbody>
+          <% @repositories.each do |repository| %>
+            <tr>
+              <% if repository.private %>
+              <td><span class="mega-octicon octicon-lock"></span></td>
+              <% else %>
+              <td><span class="mega-octicon octicon-repo"></span></td>
+              <% end %>
+              <td><%= repository.name %></td>
+              <td><%= repository.full_name %></td>
+              <td><%= repository.description %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
 
-  <tbody>
-    <% @repositories.each do |repository| %>
-      <tr>
-        <td><%= repository.name %></td>
-        <td><%= repository.full_name %></td>
-        <td><%= repository.description %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    </div>
+    <div class="large-4 columns">
+      <ul class="side-nav">
+        <li><a href="#">Link 1</a></li>
+        <li><a href="#">Link 2</a></li>
+        <li><a href="#">Link 3</a></li>
+        <li><a href="#">Link 4</a></li>
+      </ul>
+    </div>
 
-<br>
-
-<%= link_to 'New Repository', new_repository_path %>
+  </div>
+</div>
