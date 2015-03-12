@@ -1,6 +1,7 @@
 class BuildsController < ApplicationController
+  before_filter :authenticate_user!, except: [:create]
 
-  respond_to :json
+  respond_to :json, :html
 
   def create
     body_as_string = request.body.read
@@ -40,6 +41,12 @@ class BuildsController < ApplicationController
     end
     response_body = response.body
     render json: body
+  end
+
+  def index
+    @current_builds = Build.all
+    @old_builds = Build.where(status: 'completed').limit(10).count(true)
+    respond_with(@current_builds, @old_builds)
   end
 
 end

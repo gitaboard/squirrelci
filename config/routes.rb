@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post 'repositories' => 'repositories#create'
   get 'repositories/:id' => 'repositories#index'
   post 'builds' => 'builds#create'
+  get 'builds' => 'builds#index'
 
   get 'setup' => 'setup#index'
   post 'setup/save' => 'setup#save'
@@ -32,7 +33,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'builds#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

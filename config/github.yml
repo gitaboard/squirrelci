@@ -1,6 +1,6 @@
 ---
 server:
   url: http://faushouse.vm
-  client_id: 820af432d504baa23d12
-  client_secret: 4516083f063e30cbe529d7399b50f6024b6e252c
-  user_token: d154c5d5910e3d7a99065d1a2fe05e180ae64142
+  client_id: bce5ece9cf399164b6e5
+  client_secret: 5b053cce81022e1b3d1bed63a37d13e7e66058f6
+  user_token: c96910eea83545598339bab9eb5a9766c1e70514
