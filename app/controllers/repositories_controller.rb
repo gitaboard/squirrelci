@@ -6,8 +6,32 @@ class RepositoriesController < ApplicationController
 
   def index
     client = Octokit::Client.new(:access_token => current_user.token, :api_endpoint => "#{GitHub['server']['url']}/api/v3")
-    @repositories = client.all_repositories
-    respond_with(@repositories)
+    name = params[:name]
+    if name.nil? || current_user['name'].eql?(name)
+      _repo = client.repositories
+      @repositories = Array.new
+      @repositories_enabled = Array.new
+      _repo.each do |r|
+        if Repository.where(repo_id: r.id).count == 0
+          @repositories << r
+        else
+          @repositories_enabled << r
+        end
+      end
+    else
+      _repo = client.organization_repositories(name)
+      @repositories = Array.new
+      @repositories_enabled = Array.new
+      _repo.each do |r|
+        if Repository.where(repo_id: r.id).count == 0
+          @repositories << r
+        else
+          @repositories_enabled << r
+        end
+      end
+    end
+    @orgs = client.organization_memberships
+    respond_with(@repositories, @repositories_enabled, @orgs)
   end
 
   def show
@@ -22,10 +46,16 @@ class RepositoriesController < ApplicationController
   def edit
   end
 
+  def search
+  end
+
   def create
-    @repository = Repository.new(repository_params)
-    @repository.save
-    respond_with(@repository)
+    client = Octokit::Client.new(:access_token => current_user.token, :api_endpoint => "#{GitHub['server']['url']}/api/v3")
+    repo = params[:repository]
+    gh_repo = client.repository(repo['repository_id'].to_i)
+    client.create_hook(gh_repo['id'], 'web', {:url => "http://#{request.remote_ip}:3000/builds", :content_type => 'json'}, {:events => ['push', 'pull_request'], :active => true})
+    @repository = Repository.create(:repo_id => gh_repo['id'], :full_name => gh_repo['full_name'], :owner => gh_repo['owner']['login'])
+    redirect_to repositories_url
   end
 
   def update

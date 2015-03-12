@@ -1,0 +1,70 @@
+<div class="content-description">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>Builds</h1>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="row">
+    <div class="large-8 columns">
+      <div class="large-12 columns">
+        <h1>Current Builds</h1>
+        <hr/>
+        <div class="large-12 columns">
+          <div class="large-1 columns centered">
+            <h2>&nbsp;</h2>
+          </div>
+          <div class="large-3 columns">
+            <h2>Name</h2>
+          </div>
+          <div class="large-4 columns">
+            <h2>Start Time</h2>
+          </div>
+          <div class="large-4 columns">
+            <h2>Elapsed Time</h2>
+          </div>
+        </div>
+        <% @current_builds.try(:each) do |b| %>
+        <div class="large-12 columns build">
+          <div class="large-1 columns">
+            <% if b.status.eql? "requested" %>
+            <span class="mega-octicon octicon-primitive-dot requested"></span>
+            <% elsif b.status.eql? "queued" %>
+            <span class="mega-octicon octicon-primitive-dot queued"></span>
+            <% elsif b.status.eql? "success" %>
+            <span class="mega-octicon octicon-check success"></span>
+            <% else %>
+            <span class="mega-octicon octicon-x failed"></span>
+            <% end %>
+          </div>
+          <div class="large-3 columns">
+            <h2><%= b.repository.full_name %></h2>
+          </div>
+          <div class="large-4 columns">
+            <h2><%= b.time_start.strftime("%F %I:%M%p") %></h2>
+          </div>
+          <div class="large-4 columns">
+            <h2><%= (b.elapsed_time - b.time_start)/60 %> minutes</h2>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="large-4 columns">
+      <ul class="side-nav repos">
+        <li class="panel header">Previous Builds</li>
+        <% @old_builds.try(:each) do |b| %>
+        <li class="repo-list">
+            <% if b.status.eql? "success" %>
+            <span class="octicon octicon-check success"></span>
+            <% else %>
+            <span class="octicon octicon-x failed"></span>
+            <% end %>
+            <%= b.repository.full_name %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

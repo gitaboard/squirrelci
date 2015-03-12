@@ -1,23 +1,94 @@
-<h1>Listing repositories</h1>
+<div class="content-description">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>Repositories</h1>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="row">
+    <div class="large-4 columns">
+      <ul class="side-nav repos">
+        <li class="panel header">My Organizations</li>
+        <li><a href="/repositories/<%= @orgs[0]['user'].login%>/search"><span class="octicon octicon-person link"></span><%= @orgs[0]['user'].login %></a></li>
+        <% @orgs.each do |org| %>
+        <li><a href="/repositories/<%= org['organization'].login%>/search"><span class="octicon octicon-organization link"></span><%= org['organization'].login %></a></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="large-8 columns">
+      <div class="large-12 columns">
+      <h1>Available Repositories</h1>
+      <hr/>
+      <% if not @repositories.empty? %>
+      <table width="100%">
+        <thead>
+          <tr>
+            <th colspan="5"></th>
+          </tr>
+        </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+        <tbody>
+          <% @repositories.each do |repository| %>
+            <tr>
+              <% if repository.private %>
+              <td width="10%"><span class="mega-octicon octicon-lock"></span></td>
+              <% else %>
+              <td width="10%"><span class="mega-octicon octicon-repo"></span></td>
+              <% end %>
+              <td width="35%"><%= repository.name %></td>
+              <td width="35%"><%= repository.full_name %></td>
+              <td width="10%">
+                <%= form_for Repository.new do |f| %>
+                  <%= f.hidden_field :repository_id, :value => repository.id %>
+                  <%= f.button :enable, class: "enable-button"%>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% else %>
+      <h2>There are no repositories available</h2>
+      <% end %>
+    </div>
+    <div class="large-12 columns">
+    <h1>Enabled Repositories</h1>
+    <hr/>
+    <% if not @repositories_enabled.empty? %>
+    <table width="100%">
+      <thead>
+        <tr>
+          <th colspan="5"></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @repositories.each do |repository| %>
-      <tr>
-        <td><%= repository.name %></td>
-        <td><%= repository.full_name %></td>
-        <td><%= repository.description %></td>
-      </tr>
+      <tbody>
+        <% @repositories_enabled.try(:each) do |repository| %>
+          <tr>
+            <% if repository.private %>
+            <td width="10%"><span class="mega-octicon octicon-lock"></span></td>
+            <% else %>
+            <td width="10%"><span class="mega-octicon octicon-repo"></span></td>
+            <% end %>
+            <td width="35%"><%= repository.name %></td>
+            <td width="35%"><%= repository.full_name %></td>
+            <td width="10%">
+              <%= form_for Repository.new do |f| %>
+                <%= f.hidden_field :repository_id, :value => repository.id %>
+                <%= f.button :disable, class: "enable-button"%>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% else %>
+    <h2>There are no repositories available</h2>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
+    </div>
 
-<%= link_to 'New Repository', new_repository_path %>
+  </div>
+</div>

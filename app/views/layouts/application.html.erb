@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "SquirrelCI" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
@@ -21,7 +21,8 @@
           </ul>
           <section class="top-bar-section">
             <ul class="left">
-              <li><a href="#">Builds</a></li>
+              <li><a href="/repositories">Repositories</a></li>
+              <li><a href="/builds">Builds</a></li>
               <li><a href="#">WebHooks</a></li>
               <li><a href="#">Deployments</a></li>
             </ul>
