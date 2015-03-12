@@ -75,12 +75,18 @@ nav img {
 .side-nav.repos {
   border: thin solid $aluminum;
   border-radius: $global-radius;
-  padding-bottom: 0px;
+  padding-bottom: 10px;
 }
 
 .side-nav li a:not(.button) {
   padding-top: 0px;
   padding-bottom: 0px;
+}
+
+.repo-list {
+  padding-top: 5px;
+  padding-left: 10px;
+  margin-bottom: 10px;
 }
 
 .panel.header {
@@ -92,4 +98,26 @@ nav img {
   padding-bottom: 5px;
   font-weight: $font-weight-bold;
   border-bottom: thin solid $aluminum;
+}
+
+.build .requested {
+  color: rgb(170, 170, 170)
+}
+
+.build .queued {
+  color: rgb(201, 162, 26)
+}
+
+.build .success, li .success {
+  color: rgb(105, 200, 58)
+}
+
+.build .failed, li .failed {
+  color: rgb(191, 43, 0)
+}
+
+.build {
+  border: thin solid $gainsboro;
+  padding: 10px;
+  margin-bottom: 10px;
 }

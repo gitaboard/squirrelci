@@ -14,8 +14,9 @@ class BuildsController < ApplicationController
       if ["feature", "hotfix", "bug"].include? branch.split("/").first
         repo_id = body['repository']['id']
         repository = Repository.where(repo_id: repo_id).first
-        build = repository.builds.create!(:time_start => Time.now, :elapsed_time => 5.minutes.from_now, :status => 'success')
         sha = body['pull_request']['head']['sha']
+        time = Time.now
+        build = repository.builds.create!(:time_start => time, :state => "requested")
         client = Octokit::Client.new(:access_token => GitHub['server']['user_token'], :api_endpoint => "#{GitHub['server']['url']}/api/v3")
         client.create_status(repo_id, sha,
             'pending', {:context => "SquirrelCI Build",
@@ -31,11 +32,22 @@ class BuildsController < ApplicationController
           )
         end
         sleep(15.seconds)
-        client.create_status(repo_id, sha,
-            'success', {:context => "SquirrelCI Build",
-            :target_url => "http://#{request.remote_ip}:3000/builds/#{build._id}",
-            :description => "Great coding! Keep up the good work."}
-        )
+        puts "COMMIT COUNT ==> #{body['pull_request']['commits'].to_i}"
+        if body['pull_request']['commits'].to_i.even?
+          puts "FOUND EVEN"
+          build.update_attributes(:elapsed_time => time + 5.minutes, :state => "completed", :status => 'success')
+          client.create_status(repo_id, sha,
+              'success', {:context => "SquirrelCI Build",
+              :target_url => "http://#{request.remote_ip}:3000/builds/#{build._id}",
+              :description => "Great coding! Keep up the good work."})
+        else
+          puts "FOUND ODD"
+          build.update_attributes(:elapsed_time => time + 3.minutes, :state => "completed", :status => 'failure')
+          client.create_status(repo_id, sha,
+              'failure', {:context => "SquirrelCI Build",
+              :target_url => "http://#{request.remote_ip}:3000/builds/#{build._id}",
+              :description => "Build failed! Do you need some help?"})
+        end
         #puts body.inspect
       end
     end
@@ -44,8 +56,8 @@ class BuildsController < ApplicationController
   end
 
   def index
-    @current_builds = Build.all
-    @old_builds = Build.where(status: 'completed').limit(10).count(true)
+    @current_builds = Build.recent
+    @old_builds = Build.where(state: 'completed').limit(10)
     respond_with(@current_builds, @old_builds)
   end
 
