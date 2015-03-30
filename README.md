@@ -5,7 +5,7 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version - 4.1.2
+* Ruby version - 2.1.2
   * Install Using rbenv - https://gorails.com/setup/osx/10.9-mavericks
 
 
