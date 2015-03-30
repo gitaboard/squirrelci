@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'repositories/:id' => 'repositories#index'
   post 'builds' => 'builds#create'
   get 'builds' => 'builds#index'
+  get 'builds/:id' => 'builds#index'
 
   get 'setup' => 'setup#index'
   post 'setup/save' => 'setup#save'

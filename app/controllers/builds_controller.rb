@@ -21,13 +21,13 @@ class BuildsController < ApplicationController
         client.create_status(repo_id, sha,
             'pending', {:context => "SquirrelCI Build",
             :target_url => "http://#{request.remote_ip}:3000/builds/#{build._id}",
-            :description => "Checking our nuts!"}
+            :description => "Evaluation in progress..."}
         )
         assignee = body['pull_request']['assignee']
         if assignee.nil?
           client.create_status(repo_id, sha,
               'failure', {:context => "Process Checker",
-              :target_url => "http://#{request.remote_ip}:3000/builds/#{build._id}",
+              :target_url => "http://192.168.115.1:3000/builds/#{build._id}",
               :description => "This PR needs to be assigned before it is merged!"}
           )
         end
@@ -38,14 +38,14 @@ class BuildsController < ApplicationController
           build.update_attributes(:elapsed_time => time + 5.minutes, :state => "completed", :status => 'success')
           client.create_status(repo_id, sha,
               'success', {:context => "SquirrelCI Build",
-              :target_url => "http://#{request.remote_ip}:3000/builds/#{build._id}",
+              :target_url => "http://192.168.115.1:3000/builds/#{build._id}",
               :description => "Great coding! Keep up the good work."})
         else
           puts "FOUND ODD"
           build.update_attributes(:elapsed_time => time + 3.minutes, :state => "completed", :status => 'failure')
           client.create_status(repo_id, sha,
               'failure', {:context => "SquirrelCI Build",
-              :target_url => "http://#{request.remote_ip}:3000/builds/#{build._id}",
+              :target_url => "http://192.168.115.1:3000/builds/#{build._id}",
               :description => "Build failed! Do you need some help?"})
         end
         #puts body.inspect

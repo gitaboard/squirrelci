@@ -19,15 +19,19 @@ class RepositoriesController < ApplicationController
         end
       end
     else
-      _repo = client.organization_repositories(name)
       @repositories = Array.new
       @repositories_enabled = Array.new
-      _repo.each do |r|
-        if Repository.where(repo_id: r.id).count == 0
-          @repositories << r
-        else
-          @repositories_enabled << r
+      begin
+        _repo = client.organization_repositories(name)
+        _repo.each do |r|
+          if Repository.where(repo_id: r.id).count == 0
+            @repositories << r
+          else
+            @repositories_enabled << r
+          end
         end
+      rescue
+        puts "no repos found"
       end
     end
     @orgs = client.organization_memberships
